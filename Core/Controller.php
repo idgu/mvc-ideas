@@ -56,7 +56,7 @@ abstract class Controller
     public function requireLogin()
     {
         if (!Auth::getUser()) {
-            Flash::addMessage('Please login to access that page', Flash::INFO);
+            Flash::addMessage('Proszę zaloguj się aby odwiedzić tą stronę', Flash::INFO);
             Auth::rememberRequestedPage();
 
             $this->redirect('/login');
@@ -74,7 +74,7 @@ abstract class Controller
             if ($user->isAdmin()) return;
         }
 
-        throw new \Exception('You are not admin, my lady', 404);
+        throw new \Exception('Wymagane uprawnienia administratora', 404);
 
     }
 
@@ -85,7 +85,7 @@ abstract class Controller
     public function notRequireLogin()
     {
         if (Auth::getUser()) {
-            Flash::addMessage('Please logout to access that page', Flash::INFO);
+            Flash::addMessage('Tylko niezalogowani użytkownicy mają dostęp do tej strony', Flash::INFO);
 
             $this->redirect('/');
         }
