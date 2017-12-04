@@ -10,14 +10,14 @@
             <img alt=""  title="" class="img-thumbnail text-center" src="{{ URL }}/img/avatar.png">
         </div>
         <div class="col-md-6 justify-self-center">
-            <strong>Information</strong> <a href="{{ URL }}/profile/edit" class="ml-5">Edit profile</a><br>
+            <strong>Informacje</strong> <a href="{{ URL }}/profile/edit" class="ml-5">Edytuj profil</a><br>
             <table class="table text-inverse">
                 <tbody>
                 <tr>
                     <td>
                         <strong>
                             <span class="fa fa-user"></span>
-                            Username
+                            Nazwa
                         </strong>
                     </td>
                     <td>
@@ -39,11 +39,15 @@
                     <td>
                         <strong>
                             <span class="fa fa-comment"></span>
-                            Permission
+                            Ranga
                         </strong>
                     </td>
                     <td>
-                        User
+                        {% if current_user.permission == 0%}
+                        Użytkownik
+                        {% else %}
+                        Admin
+                        {% endif%}
                     </td>
                 </tr>
 

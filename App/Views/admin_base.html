@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 
-    <title>{% block title %}{% endblock %}</title>
+    <title>Admin | {% block title %}{% endblock %}</title>
     <style>
         @media (max-width: 576px) {
             nav .container {
@@ -25,18 +25,27 @@
     <nav class="navbar navbar-light navbar-inverse navbar-toggleable-sm bg-inverse">
         <div class="container">
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav"><span class="navbar-toggler-icon"></span></button>
-            <a class="navbar-brand" href="{{ URL }}/admin">MVC - ADMIN</a>
+            <a class="navbar-brand" href="{{ URL }}/admin">BK - ADMIN</a>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto ">
                     <li class="nav-item">
                         <a class="nav-link" href="{{ URL }}/admin">Dashboard</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ URL }}/admin/users/index">Users</a>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="{{ URL }}/admin/users/index">Użytkownicy</a>
+                        <div class="dropdown-menu">
+                            <a href="{{ URL }}/admin/users/add" class="dropdown-item">
+                                <i class="fa fa-plus fa-lg"></i> Dodaj
+                            </a>
+                            <a href="{{ URL }}/admin/users/index" class="dropdown-item">
+                                <i class="fa fa-users fa-lg"></i> Lista
+                            </a>
+                        </div>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ URL }}">
-                            <i class="fa fa-power-off fa-lg"></i> Back to Page
+                            <i class="fa fa-power-off fa-lg"></i> Wróc do strony
                         </a>
                     </li>
                 </ul>

@@ -310,7 +310,7 @@ class User extends \core\Model
 
         if ($user) {
             if (strtotime($user->password_reset_expires_at) > time()) {
-                $user->errors[]= 'Activation email can be resend after '. $user->password_reset_expires_at;
+                $user->errors[]= 'Email resetujący hasło może zostać ponownie wysłany po '. $user->password_reset_expires_at;
             }
 
             if (empty($user->errors)) {
@@ -321,7 +321,7 @@ class User extends \core\Model
             }
         } else {
             $user = new User();
-            $user->errors[]= 'User not found!';
+            $user->errors[]= 'Konto z podanym emailem nie istnieje!';
         }
         return $user;
     }
@@ -404,14 +404,14 @@ class User extends \core\Model
                     $user->sendActivationEmail();
                     return true;
                 } else {
-                    $user->errors[]= 'Activation email can be resend after '. $user->activation_hash_allowed_date;
+                    $user->errors[]= 'Aktywacyjny email może zostać ponownie wysłany po '. $user->activation_hash_allowed_date;
                     return $user;
                 }
             }
-            $user->errors[]= 'This user is already activated!';
+            $user->errors[]= 'Konto jest już aktywne!';
         } else {
             $user = new User();
-            $user->errors[]= 'User not found!';
+            $user->errors[]= 'Konto z podanym emailem nie istnieje!';
         }
         return $user;
     }

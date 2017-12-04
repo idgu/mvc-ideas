@@ -85,7 +85,7 @@ class Users extends Authenticatedadmin
 
 
         if ($user->save($validator, true)) {
-            Flash::addMessage('User added!', Flash::SUCCESS);
+            Flash::addMessage('Użytkownik został dodany!', Flash::SUCCESS);
             $this->redirect('/admin');
         } else {
             View::renderTemplate('/Admin/Users/add.html', [
@@ -108,7 +108,7 @@ class Users extends Authenticatedadmin
                 'token_form' => Input::generateFormToken()
             ]);
         } else {
-            Flash::addMessage('User not found', Flash::WARNING);
+            Flash::addMessage('Podany użytkownik nie istnieje!', Flash::WARNING);
             $this->redirect( '/admin/users/index');
         }
     }
@@ -150,7 +150,7 @@ class Users extends Authenticatedadmin
                     $user->setAdminPermission();
                 }
 
-                Flash::addMessage('Changes saved');
+                Flash::addMessage('Użytkownik został zaktualizowany!');
                 $this->redirect('/admin/users/show/'.$user->id);
 
             } else {
@@ -162,7 +162,7 @@ class Users extends Authenticatedadmin
 
             }
         } else {
-            Flash::addMessage('User not found', Flash::WARNING);
+            Flash::addMessage('Użytkownik nie istnieje!', Flash::WARNING);
             $this->redirect( '/admin/users/index');
         }
     }
@@ -178,10 +178,10 @@ class Users extends Authenticatedadmin
 
         if ($user){
             $user->delete();
-            Flash::addMessage('User deleted.', Flash::WARNING);
+            Flash::addMessage('Użytkownik został usunięty.', Flash::WARNING);
             $this->redirect( '/admin/users/index');
         } else {
-            Flash::addMessage('User not found', Flash::WARNING);
+            Flash::addMessage('Użytkownik nie istnieje!', Flash::WARNING);
             $this->redirect( '/admin/users/index');
         }
     }
@@ -199,7 +199,7 @@ class Users extends Authenticatedadmin
                 'user' => $user
             ]);
         } else {
-            Flash::addMessage('User not found', Flash::WARNING);
+            Flash::addMessage('Użytkownik nie istnieje', Flash::WARNING);
             $this->redirect( '/admin/users/index');
         }
     }

@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Forgot Password{% endblock %}
+{% block title %}Reset Hasłą{% endblock %}
 
 {% block body%}
 
@@ -14,21 +14,21 @@
 
 
 
-<h1 class="display-4 mt-5 text-center">Request password reset</h1>
+<h1 class="display-4 mt-5 text-center">Wyślij email resetujący hasło</h1>
 <form class="justify-content-md-center mt-5" action="{{ URL }}/password/request-reset" method="post">
 
 
     <div class="row justify-content-md-center">
         <div class="form-group col-md-6">
             <label for="inputEmail">Email</label>
-            <input type="email" name="email" value="{{ email }}" class="form-control" placeholder="email adress" id="inputEmail" required>
+            <input type="email" name="email" value="{{ email }}" class="form-control" placeholder="Adres email" id="inputEmail" required>
         </div>
     </div>
 
     <div class="row justify-content-md-center">
         <div class="col-md-4">
             <input type="hidden" name="token_form" value="{{ token_form }}">
-            <input type="submit" value="Send password reset" class="btn bg-inverse text-white btn-block">
+            <input type="submit" value="Wyślij" class="btn bg-inverse text-white btn-block">
         </div>
     </div>
 </form>

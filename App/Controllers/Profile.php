@@ -37,12 +37,12 @@ class Profile extends Authenticated
 
         $validator = new Validator($user);
 
-        $validator->add(new Form('Username', 'name', [
+        $validator->add(new Form('Nazwa użytkownika', 'name', [
             'maxlength' =>32,
             'minlength' =>4
         ]));
 
-        $validator ->add($password = new Form('Password','password', [
+        $validator ->add($password = new Form('Hasło','password', [
             'maxlength'=>32,
             'minlength'=>6,
             'oneNumber' => true,
@@ -50,13 +50,13 @@ class Profile extends Authenticated
             'notRequired' => true
         ]));
 
-        $validator->add(new Form('Password','password_confirmation', [
+        $validator->add(new Form('Potwierdzenie hasła','password_confirmation', [
             'equals' => $password
         ]));
 
         if ($user->updateProfile($validator, $_POST)) {
 
-            Flash::addMessage('Changes saved');
+            Flash::addMessage('Konto zostało zaktualizowane');
             $this->redirect('/profile/show');
 
         } else {

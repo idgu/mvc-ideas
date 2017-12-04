@@ -32,7 +32,7 @@ class Signup extends Authenticatednot
 
         $validator = new Validator($user);
 
-        $validator->add(new Form('Username', 'name', [
+        $validator->add(new Form('Nazwa użytkownika', 'name', [
             'maxlength' =>32,
             'minlength' =>4
         ]));
@@ -42,14 +42,14 @@ class Signup extends Authenticatednot
             'notExistDb' => 'users/email'
         ]));
 
-        $validator ->add($password = new Form('Password','password', [
+        $validator ->add($password = new Form('Hasło','password', [
             'maxlength'=>32,
             'minlength'=>6,
             'oneNumber' => true,
             'oneLetter' => true
         ]));
 
-        $validator->add(new Form('Password','password_confirmation', [
+        $validator->add(new Form('Potwierdzenie hasła','password_confirmation', [
             'equals' => $password
         ]));
 

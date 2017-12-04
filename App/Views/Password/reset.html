@@ -11,18 +11,18 @@
 {% endif %}
 
 
-<h1 class="display-4 mt-5 text-center">Reset password</h1>
+<h1 class="display-4 mt-5 text-center">Resetowanie hasła</h1>
 <form class="justify-content-md-center mt-5" method="post" action="{{ URL }}/password/reset-password">
     <div class="row justify-content-md-center">
         <div class="form-group col-md-6">
-            <label for="inputPassword">Password</label>
-            <input id="inputPassword" type="password" class="form-control" name="password" placeholder="password" autofocus required>
+            <label for="inputPassword">Hasło</label>
+            <input id="inputPassword" type="password" class="form-control" name="password" placeholder="Hasło" autofocus required>
         </div>
     </div>
     <div class="row justify-content-md-center">
         <div class="form-group col-md-6">
-            <label for="inputPasswordConfirmation">Password Confirm</label>
-            <input id="inputPasswordConfirmation" type="password" class="form-control" name="password_confirmation" placeholder="repeat password" required>
+            <label for="inputPasswordConfirmation">Potwierdzenie hasła</label>
+            <input id="inputPasswordConfirmation" type="password" class="form-control" name="password_confirmation" placeholder="Powtórz hasło" required>
         </div>
     </div>
 
@@ -30,7 +30,7 @@
         <div class="col-md-4">
     <input type="hidden" name="token" value="{{ token }}">
     <input type="hidden" name="token_form" value="{{ token_form }}">
-    <input type="submit" class="btn bg-inverse text-white btn-block" value="Change password">
+    <input type="submit" class="btn bg-inverse text-white btn-block" value="Zmień hasło">
         </div>
     </div>
 </form>

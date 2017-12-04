@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Signup{% endblock %}
+{% block title %}Rejestracja{% endblock %}
 
 {% block body%}
 
@@ -19,12 +19,12 @@
 
 
 
-<h1 class="display-4 mt-5 text-center">Sign up</h1>
+<h1 class="display-4 mt-5 text-center">Rejestracja</h1>
     <form class="justify-content-md-center mt-5" method="post" action="{{ URL }}/signup/create">
     <div class="row justify-content-md-center">
         <div class="form-group col-md-6">
-            <label for="inputName">Username</label>
-            <input type="text" name="name" class="form-control" id="inputName" placeholder="Name" autofocus value="{{ user.name }}" >
+            <label for="inputName">Nazwa użytkownika</label>
+            <input type="text" name="name" class="form-control" id="inputName" placeholder="Nazwa" autofocus value="{{ user.name }}" >
         </div>
     </div>
 
@@ -32,28 +32,28 @@
 
     <div class="row justify-content-md-center">
         <div class="form-group col-md-6">
-            <label for="inputEmail">Email (confirmation via Email Message)</label>
-            <input  name="email" class="form-control" id="inputEmail" placeholder="email adress" value="{{ user.email }}" >
+            <label for="inputEmail">Email (aktywacja konta przez email)</label>
+            <input  name="email" class="form-control" id="inputEmail" placeholder="Adres email" value="{{ user.email }}" >
             <span id="emailError" class="text-danger"></span>
         </div>
     </div>
         <div class="row justify-content-md-center">
         <div class="form-group col-md-6">
-            <label for="inputPassword">Password</label>
-            <input  name="password" class="form-control" id="inputPassword" placeholder="password" >
+            <label for="inputPassword">Hasło</label>
+            <input  name="password" type="password" class="form-control" id="inputPassword" placeholder="Hasło" >
         </div>
     </div>
         <div class="row justify-content-md-center">
         <div class="form-group col-md-6">
-            <label for="inputPasswordConfirmation">Password Confirm</label>
-            <input  name="password_confirmation" class="form-control" id="inputPasswordConfirmation" placeholder="repeat password" >
+            <label for="inputPasswordConfirmation">Potwierdzenie Hasła</label>
+            <input  name="password_confirmation" type="password" class="form-control" id="inputPasswordConfirmation" placeholder="Powtórz hasło" >
         </div>
     </div>
 
     <div class="row justify-content-md-center">
         <div class="col-md-4">
             <input type="hidden" name="token_form" value="{{ token_form }}">
-            <button type="submit" class="btn bg-inverse text-white btn-block">Sign up</button>
+            <button type="submit" class="btn bg-inverse text-white btn-block">Zarejestruj się</button>
         </div>
     </div>
 </form>

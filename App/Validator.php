@@ -105,7 +105,7 @@ class Validator
     private function equals($value){
         if (isset($value)) {
             if (!($this->getElementData() == $this->_validateObj->{$value->getInputName()})) {
-                $this->_errors[] = 'Field "'.$this->getElementName(). '" oraz "' . $value->getName().'" nie jest takie same!';
+                $this->_errors[] = '"'.$this->getElementName(). '" oraz "' . $value->getName().'" nie jest takie same!';
             }
         }
     }
@@ -113,14 +113,14 @@ class Validator
 
     private function maxLength($value){
         if (strlen($this->getElementData()) > $value) {
-            $this->_errors[] = 'Field "'.$this->getElementName(). '" can has (max '. $value . ' zn.)';
+            $this->_errors[] = '"'.$this->getElementName(). '" może zawierać (max '. $value . ' zn.)';
         }
     }
 
 
     private function minLength($value){
         if (strlen($this->getElementData()) < $value) {
-            $this->_errors[] = 'Field "'.$this->getElementName(). '" needs at least  (min '. $value . ' ch.)';
+            $this->_errors[] = '"'.$this->getElementName(). '" musi zawierać  (min '. $value . ' zn.)';
         }
     }
 
@@ -128,7 +128,7 @@ class Validator
     private function oneLetter()
     {
         if (preg_match('/.*[a-z]+.*/i', $this->getElementData()) == 0) {
-            $this->_errors[] = $this->getElementName().' needs at least one letter';
+            $this->_errors[] = '"'.$this->getElementName().' musi zawierać przynajmniej 1 literę';
         }
     }
 
@@ -136,7 +136,7 @@ class Validator
     private function oneNumber()
     {
         if (preg_match('/.*\d+.*/i', $this->getElementData()) == 0) {
-            $this->_errors[] = $this->getElementName().' needs at least one number';
+            $this->_errors[] = '"'.$this->getElementName().' musi zawierać przynajmniej 1 cyfrę';
         }
     }
 
@@ -144,7 +144,7 @@ class Validator
     private function email()
     {
         if (filter_var($this->getElementData(), FILTER_VALIDATE_EMAIL) === false) {
-            $this->_errors[] = 'Invalid email';
+            $this->_errors[] = 'Niepoprawny email';
         }
     }
 
@@ -157,7 +157,7 @@ class Validator
 
 
         if (!$record) {
-            $this->_errors[] = 'Wartość pola "'. $this->getElementName(). '" nie istnieje w bazie!' ;
+            $this->_errors[] = '"'.$this->getElementName(). '" nie istnieje w bazie!' ;
         }
     }
 

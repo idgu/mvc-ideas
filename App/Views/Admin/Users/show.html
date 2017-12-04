@@ -1,5 +1,9 @@
 {% extends "admin_base.html" %}
 
+{% block title%}
+    Użytkownik - Wyświetl
+{% endblock %}
+
 {% block body%}
 
 <div class="container">
@@ -10,7 +14,7 @@
                 <img alt=""  title="" class="img-thumbnail text-center" src="{{ URL }}/img/avatar.png">
             </div>
             <div class="col-md-6 justify-self-center">
-                <strong>Information</strong>
+                <strong>Informacje</strong>
 
                 <br>
                 <table class="table text-inverse">
@@ -19,7 +23,7 @@
                         <td>
                             <strong>
                                 <span class="fa fa-user"></span>
-                                Username
+                                Nazwa
                             </strong>
                         </td>
                         <td>
@@ -41,12 +45,12 @@
                         <td>
                             <strong>
                                 <span class="fa fa-comment"></span>
-                                Permission
+                                Ranga
                             </strong>
                         </td>
                         <td>
                         {% if user.permission == 0%}
-                        User
+                        Użytkownik
                         {% else %}
                         Admin
                         {% endif%}
@@ -60,8 +64,8 @@
         <div class="row justify-content-md-center mt-4">
             <div class="form-group col-md-6 text-center">
                 <input type="hidden" name="token_form" value="{{ token_form }}">
-                <a class="btn bg-inverse text-white btn-block" href="{{ URL }}/admin/users/edit/{{ user.id }}">Edit</a>
-                <a class="btn bg-danger text-white btn-block" id="inputDelete" href="{{ URL }}/admin/users/delete/{{ user.id }}">Delete</a>
+                <a class="btn bg-inverse text-white btn-block" href="{{ URL }}/admin/users/edit/{{ user.id }}">Edytuj</a>
+                <a class="btn bg-danger text-white btn-block" id="inputDelete" href="{{ URL }}/admin/users/delete/{{ user.id }}">Usuń</a>
             </div>
         </div>
     </div>

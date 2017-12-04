@@ -1,4 +1,4 @@
-Password reset
+Resetowanie hasła
 
-Please click the following link to reser your password:
+Proszę odwiedź następujący adres w celu zmiany hasła:
 {{ url }}

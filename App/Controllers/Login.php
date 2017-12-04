@@ -34,12 +34,12 @@ class Login extends Authenticatednot
         if ($user) {
 
             Auth::login($user, $remember_me);
-            Flash::addMessage('Login successful');
+            Flash::addMessage('Zalogowaleś się pomyślnie!');
             $this->redirect(Auth::getReturnToPage());
 
         } else {
 
-            Flash::addMessage('Login unsuccessful, please try again', Flash::WARNING);
+            Flash::addMessage('Logowanie nie powiodło się, spróbuj ponownie!', Flash::WARNING);
             View::renderTemplate('/Login/new.html', [
                 'email' => $_POST['email'],
                 'remember_me' => $remember_me,
@@ -61,7 +61,7 @@ class Login extends Authenticatednot
 
     public function showLogoutMessageAction()
     {
-        Flash::addMessage('Logout successful');
+        Flash::addMessage('Wylogowałeś się pomyślnie!');
         $this->redirect('/');
     }
 }

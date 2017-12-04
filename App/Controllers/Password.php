@@ -65,14 +65,14 @@ class Password extends Authenticatednot
 
 
         $validator = new Validator($user);
-        $validator -> add($password = new Form('Password','password', [
+        $validator -> add($password = new Form('Hasło','password', [
             'maxlength'=>32,
             'minlength'=>6,
             'oneNumber' => true,
             'oneLetter' => true
         ]));
 
-        $validator->add(new Form('Password Confirm','password_confirmation', [
+        $validator->add(new Form('Potwierdzenie hasła','password_confirmation', [
             'equals' => $password
         ]));
 

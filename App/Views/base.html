@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ URL }}/css/styles.css">
 
-    <title>{% block title %}{% endblock %}</title>
+    <title>BK | {% block title %}{% endblock %}</title>
     <style>
         @media (max-width: 576px) {
             nav .container {
@@ -30,15 +30,15 @@
                 {% if current_user %}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">{{ current_user.name }}</a>
-                    <div class="dropdown-menu bg-inverse">
-                        <a href="{{ URL }}/profile/show" class="dropdown-item text-white">
-                            <i class="fa fa-user fa-lg"></i> Profile
+                    <div class="dropdown-menu">
+                        <a href="{{ URL }}/profile/show" class="dropdown-item">
+                            <i class="fa fa-user fa-lg"></i> Profil
                         </a>
 
                         {% if current_user.isAdmin %}
 
                         <div class="dropdown-divider"></div>
-                        <a href="{{ URL }}/admin" class="dropdown-item text-white">
+                        <a href="{{ URL }}/admin" class="dropdown-item">
                             <i class="fa fa-cog fa-lg"></i> Admin Panel
                         </a>
 
@@ -47,15 +47,15 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ URL }}/logout">
-                        <i class="fa fa-power-off fa-lg"></i> Logout
+                        <i class="fa fa-power-off fa-lg"></i> Wyloguj
                     </a>
                 </li>
                 {% else %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ URL }}/login">Login</a>
+                    <a class="nav-link" href="{{ URL }}/login">Logowanie</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ URL }}/signup/new">Sign up</a>
+                    <a class="nav-link" href="{{ URL }}/signup/new">Rejestracja</a>
                 </li>
                 {% endif %}
             </ul>

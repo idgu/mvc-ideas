@@ -16,28 +16,28 @@
             <div class="col-md-9">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Edit Profile</h4>
+                        <h4>Edycja profilu</h4>
                     </div>
                     <div class="card-block">
                         <form method="post" action="{{ URL }}/profile/update">
                             <div class="form-group">
-                                <label for="inputName" class="form-control-label">Username</label>
+                                <label for="inputName" class="form-control-label">Nazwa użytkownika</label>
                                 <input id="inputName" type="text" class="form-control" name="name" value="{{ current_user.name }}">
                             </div>
                             <div class="form-group">
-                                <label for="inputPassword" class="form-control-label">Password</label>
-                                <input id="inputPassword" class="form-control" type="password" name="password" placeholder="password">
+                                <label for="inputPassword" class="form-control-label">Hasło</label>
+                                <input id="inputPassword" class="form-control" type="password" name="password" placeholder="Hasło">
                             </div>
 
                             <div class="form-group">
-                                <label for="inputPasswordConfirmation" class="form-control-label">Password Confirm</label>
-                                <input id="inputPasswordConfirmation" class="form-control" type="password" name="password_confirmation" placeholder="repeat password">
+                                <label for="inputPasswordConfirmation" class="form-control-label">Potwierdzenie hasła</label>
+                                <input id="inputPasswordConfirmation" class="form-control" type="password" name="password_confirmation" placeholder="Powtórz hasło">
                             </div>
                             <div class="row justify-content-md-center mt-5">
                                 <div class="form-group col-md-6 text-center">
                                         <input type="hidden" name="token_form" value="{{ token_form }}">
-                                        <button type="submit" class="btn bg-inverse text-white btn-block">Update</button>
-                                        <a href="{{ URL }}/profile/show">Cancel</a>
+                                        <button type="submit" class="btn bg-inverse text-white btn-block">Aktualizuj</button>
+                                        <a href="{{ URL }}/profile/show">Zrezygnuj</a>
                                 </div>
                             </div>
 
