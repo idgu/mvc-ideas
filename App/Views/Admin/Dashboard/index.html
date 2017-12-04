@@ -1,0 +1,93 @@
+{% extends "admin_base.html" %}
+
+{% block title %}Admin - Dashboard{% endblock %}
+
+
+{% block header%}
+
+
+<header id="main-header" class="py-2 bg-primary text-white">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h1><i class="fa fa-gear"></i> Dashboard</h1>
+            </div>
+        </div>
+    </div>
+</header>
+
+<section id="actions" class="py-4 mb-4 bg-faded">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <a href="{{ URL }}/admin/users/add" class="btn btn-warning btn-block" ><i class="fa fa-plus"></i> Add User</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+
+{% block body %}
+
+
+<section id="users">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Latest 6 Users</h4>
+                    </div>
+                    <table class="table table-striped">
+                        <thead class="thead-inverse">
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Id</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if users is not empty %}
+
+                        {% set x = 1 %}
+                        {% for user in users %}
+
+                        <tr>
+                            <td scope="row">{{ x }}</td>
+                            <td>{{ user.name }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.id }}</td>
+                            <td>
+                                <a href="{{ URL }}/admin/users/show/{{user.id}}" class="btn btn-secondary" title="Show user details"><i class="fa fa-eye"></i></a>
+                                <a href="{{ URL }}/admin/users/edit/{{user.id}}" class="btn btn-secondary" title="Edit user details"><i class="fa fa-pencil"></i></a>
+                            </td>
+                        </tr>
+                        {% set x = x+1 %}
+                        {% endfor %}
+                        {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center card-warning text-white mb-3">
+                    <div class="card-block">
+                        <h3>Users</h3>
+                        <h1 class="display-4"><i class="fa fa-users"></i> {{ usersCount }}</h1>
+                        <a href="{{ URL }}/admin/users/index" class="btn btn-sm btn-outline-secondary text-white">View</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% endblock%}
+
+
+

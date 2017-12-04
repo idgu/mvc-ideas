@@ -1,0 +1,122 @@
+{% extends "admin_base.html" %}
+
+{% block title%} Users - List {% endblock %}
+{% block header %}
+
+<header id="main-header" class="py-2 bg-warning text-white">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h1><i class="fa fa-users"></i> Users</h1>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- ACTIONS -->
+<section id="actions" class="py-4 mb-4 bg-faded">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-6">
+                <div class="input-group">
+                    <input type="text" id="inputName" class="form-control" placeholder="Search users by name...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-warning">Search</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="height: 100px; overflow: hidden;"> <div id="liveSearch" class="col-md-6 offset-md-6"></div></div>
+    </div>
+</section>
+
+{% endblock %}
+
+
+
+{% block body %}
+
+
+<section id="users">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Users</h4>
+                    </div>
+                    <table class="table table-striped">
+                        <thead class="thead-inverse">
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Date Registered</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if users is not empty %}
+
+                        {% for user in users %}
+
+                        <tr>
+                            <td scope="row">{{ numlist }}</td>
+                            <td>{{ user.name }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.join_date }}</td>
+                            <td>
+                                <a href="{{ URL }}/admin/users/show/{{user.id}}" class="btn btn-secondary" title="Show user details"><i class="fa fa-eye"></i></a>
+                                <a href="{{ URL }}/admin/users/edit/{{user.id}}" class="btn btn-secondary" title="Edit user details"><i class="fa fa-pencil"></i></a>
+                                <a href="{{ URL }}/admin/users/delete/{{user.id}}" id="inputDelete" class="text-danger btn btn-secondary" title="Delete user"><i class="fa fa-minus-circle"></i></a>
+                            </td>
+                        </tr>
+                        {% set numlist = numlist+1 %}
+                        {% endfor %}
+                        {% endif %}
+
+                        </tbody>
+                    </table>
+
+                    <div class="row justify-content-center">
+                        <nav>
+                            <ul class="pagination">
+                                <li class="page-item {% if numpage == 1 %} disabled {% endif%}"><a href="{{ URL }}/admin/users/index/{{numpage-1}}" class="page-link">Previous</a></li>
+                                {% for x in 1.. numpages%}
+                                    <li class="page-item {% if numpage == x %} active {% endif%}"><a href="{{ URL }}/admin/users/index/{{x}}" class="page-link">{{x}}</a></li>
+
+                                {% set x = x+1 %}
+                                {% endfor %}
+                                <li class="page-item {% if numpage == numpages %} disabled {% endif%}"><a href="{{ URL }}/admin/users/index/{{numpage+1}}" class="page-link">{{x}}Next</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block footer%}
+<script src="{{ URL }}/js/searchuser.js"></script>
+
+<script>
+    (function(){
+        deleteInput = document.getElementById('inputDelete');
+
+        deleteInput.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            var r = confirm('Delete user');
+            if (r) {
+                window.location.replace(this.href);
+
+            }
+
+        })
+    })();
+</script>
+
+{% endblock%}

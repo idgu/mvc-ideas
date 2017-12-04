@@ -1,0 +1,90 @@
+{% extends "admin_base.html" %}
+
+{% block body%}
+
+<div class="container">
+    <div class="card mt-5 pl-2 pr-2 pt-4 pb-4">
+
+        <div class="row justify-content-center">
+            <div class="col-sm-4 text-center">
+                <img alt=""  title="" class="img-thumbnail text-center" src="{{ URL }}/img/avatar.png">
+            </div>
+            <div class="col-md-6 justify-self-center">
+                <strong>Information</strong>
+
+                <br>
+                <table class="table text-inverse">
+                    <tbody>
+                    <tr>
+                        <td>
+                            <strong>
+                                <span class="fa fa-user"></span>
+                                Username
+                            </strong>
+                        </td>
+                        <td>
+                            {{ user.name }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>
+                                <span class="fa fa-envelope"></span>
+                                Email
+                            </strong>
+                        </td>
+                        <td>
+                            {{ user.email }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>
+                                <span class="fa fa-comment"></span>
+                                Permission
+                            </strong>
+                        </td>
+                        <td>
+                        {% if user.permission == 0%}
+                        User
+                        {% else %}
+                        Admin
+                        {% endif%}
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row justify-content-md-center mt-4">
+            <div class="form-group col-md-6 text-center">
+                <input type="hidden" name="token_form" value="{{ token_form }}">
+                <a class="btn bg-inverse text-white btn-block" href="{{ URL }}/admin/users/edit/{{ user.id }}">Edit</a>
+                <a class="btn bg-danger text-white btn-block" id="inputDelete" href="{{ URL }}/admin/users/delete/{{ user.id }}">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block footer %}
+
+<script>
+    (function(){
+        deleteInput = document.getElementById('inputDelete');
+
+        deleteInput.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            var r = confirm('Delete user');
+            if (r) {
+                window.location.replace(this.href);
+
+            }
+
+        })
+    })();
+</script>
+{% endblock %}

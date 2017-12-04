@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ URL }}/css/styles.css">
+
+    <title>{% block title %}{% endblock %}</title>
+    <style>
+        @media (max-width: 576px) {
+            nav .container {
+                width: 100%;
+            }
+        }
+    </style>
+
+</head>
+<body>
+
+<nav class="navbar navbar-light navbar-inverse navbar-toggleable-sm bg-inverse">
+    <div class="container">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav"><span class="navbar-toggler-icon"></span></button>
+        <a class="navbar-brand" href="{{ URL }}">MVC</a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto ">
+
+                {% if current_user %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">{{ current_user.name }}</a>
+                    <div class="dropdown-menu bg-inverse">
+                        <a href="{{ URL }}/profile/show" class="dropdown-item text-white">
+                            <i class="fa fa-user fa-lg"></i> Profile
+                        </a>
+
+                        {% if current_user.isAdmin %}
+
+                        <div class="dropdown-divider"></div>
+                        <a href="{{ URL }}/admin" class="dropdown-item text-white">
+                            <i class="fa fa-cog fa-lg"></i> Admin Panel
+                        </a>
+
+                        {% endif %}
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ URL }}/logout">
+                        <i class="fa fa-power-off fa-lg"></i> Logout
+                    </a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ URL }}/login">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ URL }}/signup/new">Sign up</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+{% block header %}
+{% endblock %}
+
+
+<div class="container">
+
+    {% for message in flash_messages %}
+    <div class="alert alert-{{ message.type}}">{{ message.body}}</div>
+    {% endfor %}
+
+    {% block body %}
+    {% endblock %}
+</div>
+
+<div style="margin-top:500px;"></div>
+
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+
+{% block footer %}
+{% endblock %}
+
+</body>
+</html>

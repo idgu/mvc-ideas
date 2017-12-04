@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}Profile{% endblock %}
+
+{% block body%}
+<div class="card mt-5 pt-4 pb-4">
+
+    <div class="row justify-content-center">
+        <div class="col-sm-4 text-center">
+            <img alt=""  title="" class="img-thumbnail text-center" src="{{ URL }}/img/avatar.png">
+        </div>
+        <div class="col-md-6 justify-self-center">
+            <strong>Information</strong> <a href="{{ URL }}/profile/edit" class="ml-5">Edit profile</a><br>
+            <table class="table text-inverse">
+                <tbody>
+                <tr>
+                    <td>
+                        <strong>
+                            <span class="fa fa-user"></span>
+                            Username
+                        </strong>
+                    </td>
+                    <td>
+                        {{ current_user.name }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>
+                            <span class="fa fa-envelope"></span>
+                            Email
+                        </strong>
+                    </td>
+                    <td>
+                        {{ current_user.email }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>
+                            <span class="fa fa-comment"></span>
+                            Permission
+                        </strong>
+                    </td>
+                    <td>
+                        User
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

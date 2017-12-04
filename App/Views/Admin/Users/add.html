@@ -1,0 +1,68 @@
+{% extends "admin_base.html" %}
+
+{% block title %}Admin - add user{% endblock %}
+
+{% block body%}
+
+<div class="container mt-3">
+{% if user.errors is not empty %}
+{% for error in user.errors %}
+<div class="alert alert-warning">{{ error }}</div></li>
+{% endfor %}
+{% endif %}
+
+
+
+
+
+
+
+
+
+
+<h1 class="display-4 mt-5 text-center">Add user</h1>
+<form class="justify-content-md-center mt-5" method="post" action="{{ URL }}/admin/users/create">
+    <div class="row justify-content-md-center">
+        <div class="form-group col-md-6">
+            <label for="inputName">Username</label>
+            <input type="text" name="name" class="form-control" id="inputName" placeholder="Name" autofocus value="{{ user.name }}" >
+        </div>
+    </div>
+
+
+
+    <div class="row justify-content-md-center">
+        <div class="form-group col-md-6">
+            <label for="inputEmail">Email (confirmation via Email Message)</label>
+            <input  name="email" class="form-control" id="inputEmail" placeholder="email adress" value="{{ user.email }}" >
+            <span id="emailError" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row justify-content-md-center">
+        <div class="form-group col-md-6">
+            <label for="inputPassword">Password</label>
+            <input  name="password" class="form-control" id="inputPassword" placeholder="password" >
+        </div>
+    </div>
+    <div class="row justify-content-md-center">
+        <div class="form-group col-md-6">
+            <label for="inputPasswordConfirmation">Password Confirm</label>
+            <input  name="password_confirmation" class="form-control" id="inputPasswordConfirmation" placeholder="repeat password" >
+        </div>
+    </div>
+
+    <div class="row justify-content-md-center">
+        <div class="col-md-4">
+            <input type="hidden" name="token_form" value="{{ token_form }}">
+            <button type="submit" class="btn bg-inverse text-white btn-block">Add</button>
+        </div>
+    </div>
+</form>
+
+</div>
+{% endblock %}
+
+
+{% block footer %}
+<script src="{{ URL }}/js/registerValidation.js"></script>
+{% endblock %}
