@@ -1,0 +1,90 @@
+{% extends "admin_base.html" %}
+
+{% block title %}Admin - add idea{% endblock %}
+
+
+{% block header %}
+<header id="main-header" class="py-2 bg-primary text-white">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h1><i class="fa fa-lightbulb-o"></i> Pomysły</h1>
+            </div>
+        </div>
+    </div>
+</header>
+{% endblock %}
+
+
+
+{% block body%}
+
+{% if idea.errors is not empty %}
+<div class="container mt-3">
+    {% for error in idea.errors %}
+
+    <div class="alert alert-warning">{{ error }}</div></li>
+    {% endfor %}
+</div>
+{% endif %}
+
+<section id="edit-post" class="mt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Edycja pomysłu</h4>
+                    </div>
+                    <div class="card-block">
+                        <form method="post" action="{{ URL }}/admin/ideas/update/{{idea.id}}">
+                            <div class="form-group">
+                                <label for="inputName" class="form-control-label">Nazwa pomysłu</label>
+                                <input id="inputName" type="text" class="form-control" name="name" value="{{ idea.name }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="inputEditor">Opis</label>
+                                <textarea id="inputEditor" name="content" class="form-control">{{idea.content }}</textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputContribution" class="form-control-label">Wkład</label>
+                                <input id="inputContribution" class="form-control" type="number" name="contribution" placeholder="Wkład" value="{{idea.contribution}}">
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="inputCategory" class="form-control-label">Kategoria</label>
+                                <select id="inputCategory" class="form-control" name="category">
+                                    {% for category in categories %}
+                                    <option value="{{ category.id }}" {% if idea.categories_id == category.id %} selected {% endif %}>{{ category.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="row justify-content-md-center mt-5">
+                                <div class="form-group col-md-6 text-center">
+                                    <input type="hidden" name="token_form" value="{{ token_form }}">
+                                    <button type="submit" class="btn bg-inverse text-white btn-block">Aktualizuj</button>
+                                    <a href="{{ URL }}/admin/ideas/waiting">Zrezygnuj</a>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}
+
+
+{% block footer %}
+<script src="https://cdn.ckeditor.com/4.7.1/standard/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace('content');
+</script>
+<script src="{{ URL }}/js/registerValidation.js"></script>
+{% endblock %}

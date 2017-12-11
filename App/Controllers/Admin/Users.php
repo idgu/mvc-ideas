@@ -30,11 +30,13 @@ class Users extends Authenticatedadmin
 
         $usersCount = User::getUsersCount();
         $numpages = ceil($usersCount/5);
+        if ($numpages == 0) {
+            $numpages = 1;
+        }
         $start_record = ($numpage-1) * 5;
         $numlist = $start_record +1;
 
         $users = User::getAllUsers('join_date/desc/'. $start_record .', 5' );
-
 
         View::renderTemplate('/Admin/Users/index.html', [
             'numlist' => $numlist,

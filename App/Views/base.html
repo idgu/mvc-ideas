@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ URL }}/css/styles.css">
-
+    {% block head %} {% endblock %}
     <title>BK | {% block title %}{% endblock %}</title>
     <style>
         @media (max-width: 576px) {
@@ -23,11 +23,25 @@
 <nav class="navbar navbar-light navbar-inverse navbar-toggleable-sm bg-inverse">
     <div class="container">
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav"><span class="navbar-toggler-icon"></span></button>
-        <a class="navbar-brand" href="{{ URL }}">MVC</a>
+        <a class="navbar-brand" href="{{ URL }}">Bez Kanału</a>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto ">
 
                 {% if current_user %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Pomysły</a>
+                    <div class="dropdown-menu">
+                        <a href="{{ URL }}/ideas/rank" class="dropdown-item">
+                            <i class="fa fa-line-chart fa-lg"></i> Ranking
+                        </a>
+                        <a href="{{ URL }}/ideas" class="dropdown-item">
+                            <i class="fa fa-list-ol fa-lg"></i> Lista pomysłów
+                        </a>
+                        <a href="{{ URL }}/ideas/add" class="dropdown-item">
+                            <i class="fa fa-plus fa-lg"></i> Dodaj pomysł
+                        </a>
+                    </div>
+                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">{{ current_user.name }}</a>
                     <div class="dropdown-menu">
@@ -51,6 +65,17 @@
                     </a>
                 </li>
                 {% else %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Pomysły</a>
+                    <div class="dropdown-menu">
+                        <a href="{{ URL }}/ideas/rank" class="dropdown-item">
+                            <i class="fa fa-line-chart fa-lg"></i> Ranking
+                        </a>
+                        <a href="{{ URL }}/ideas" class="dropdown-item">
+                            <i class="fa fa-list-ol fa-lg"></i> Lista pomysłów
+                        </a>
+                    </div>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ URL }}/login">Logowanie</a>
                 </li>

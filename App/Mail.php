@@ -16,7 +16,6 @@ class Mail
     public static function send($to, $subject, $text, $html)
     {
         $mail = new PHPMailer(true);                              // Passing `true` enables exceptions
-        try {
             //Server settings
             $mail->SMTPOptions = array(
                 'ssl' => array(
@@ -35,8 +34,8 @@ class Mail
             $mail->Port = Config::MAIL_PORT;                                    // TCP port to connect to
 
             //Recipients
-            $mail->setFrom('from@example.com', 'Robciu');
-            $mail->addAddress($to, 'User');
+            $mail->setFrom('from@example.com', 'Bez Kanalu');
+            $mail->addAddress($to, 'Uzytkownik');
 
             //Content
             $mail->isHTML(true);                                  // Set email format to HTML
@@ -45,9 +44,6 @@ class Mail
             $mail->AltBody = $text;
 
             $mail->send();
-        } catch (Exception $e) {
-            echo 'Message could not be sent.';
-            echo 'Mailer Error: ' . $mail->ErrorInfo;
-        }
+
     }
 }

@@ -33,13 +33,27 @@
                     </li>
 
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="{{ URL }}/admin/users/index">Użytkownicy</a>
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown">Użytkownicy</a>
                         <div class="dropdown-menu">
                             <a href="{{ URL }}/admin/users/add" class="dropdown-item">
                                 <i class="fa fa-plus fa-lg"></i> Dodaj
                             </a>
                             <a href="{{ URL }}/admin/users/index" class="dropdown-item">
                                 <i class="fa fa-users fa-lg"></i> Lista
+                            </a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown">Pomysły</a>
+                        <div class="dropdown-menu">
+                            <a href="{{ URL }}/admin/ideas/add" class="dropdown-item">
+                                <i class="fa fa-plus fa-lg"></i> Dodaj
+                            </a>
+                            <a href="{{ URL }}/admin/ideas/index" class="dropdown-item">
+                                <i class="fa fa-list-ol fa-lg"></i> Lista
+                            </a>
+                            <a href="{{ URL }}/admin/ideas/waiting" class="dropdown-item">
+                                <i class="fa fa-clock-o fa-lg"></i> Oczekujące
                             </a>
                         </div>
                     </li>

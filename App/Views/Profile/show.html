@@ -10,7 +10,7 @@
             <img alt=""  title="" class="img-thumbnail text-center" src="{{ URL }}/img/avatar.png">
         </div>
         <div class="col-md-6 justify-self-center">
-            <strong>Informacje</strong> <a href="{{ URL }}/profile/edit" class="ml-5">Edytuj profil</a><br>
+            <strong>Informacje</strong> <a href="{{ URL }}/profile/edit" class="ml-5">{% if user.id == current_user.id%}Edytuj profil{% endif%}</a><br>
             <table class="table text-inverse">
                 <tbody>
                 <tr>
@@ -21,7 +21,7 @@
                         </strong>
                     </td>
                     <td>
-                        {{ current_user.name }}
+                        {{ user.name }}
                     </td>
                 </tr>
                 <tr>
@@ -32,7 +32,7 @@
                         </strong>
                     </td>
                     <td>
-                        {{ current_user.email }}
+                        {{ user.email }}
                     </td>
                 </tr>
                 <tr>
@@ -43,7 +43,7 @@
                         </strong>
                     </td>
                     <td>
-                        {% if current_user.permission == 0%}
+                        {% if user.permission == 0%}
                         Użytkownik
                         {% else %}
                         Admin

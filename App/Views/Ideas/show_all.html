@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block title %}Pomysły{% endblock %}
+
+
+{% block body%}
+
+
+<section id="categories">
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Wszystkie pomysły na biznes:</h4>
+                                    <div class="input-group mt-3">
+                                        <input type="text" id="inputName" class="form-control" placeholder="Szukaj po nazwie...">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-secondary">Szukaj</button>
+                                        </span>
+                                    </div>
+                        <div class="row justify-content-center" style="height: 100px; overflow: hidden;"> <div id="liveSearch" class="col-md-6 offset-md-6"></div></div>
+
+
+
+
+
+
+
+                    </div>
+                    <table class="table table-striped mt-3">
+                        <thead class="thead-inverse">
+                        <tr>
+                            <th>#</th>
+                            <th>Nazwa</th>
+                            <th>Ranking</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% set x = 1%}
+                        {% for idea in ideas %}
+                            <tr>
+                                <td scope="row">{{ numlist }}</td>
+                                <td><a href="{{ URL }}/ideas/show/{{idea.id}}">{{ idea.name }}</a></td>
+                                <td>{{idea.ranking}} <i class="fa fa-line-chart text-inverse fa-lg ml-2" aria-hidden="true"></i></td>
+                            </tr>
+                            {% set numlist = numlist+1 %}
+
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+                    <div class="row justify-content-center">
+                        <nav>
+                            <ul class="pagination">
+                                <li class="page-item {% if numpage == 1 %} disabled {% endif%}"><a href="{{ URL }}/ideas/showAll/{{numpage-1}}" class="page-link">Poprzednia</a></li>
+                                {% for x in 1.. numpages%}
+                                <li class="page-item {% if numpage == x %} active {% endif%}"><a href="{{ URL }}/ideas/showAll/{{ x }}" class="page-link">{{x}}</a></li>
+
+                                {% set x = x+1 %}
+                                {% endfor %}
+                                <li class="page-item {% if numpage == numpages %} disabled {% endif%}"><a href="{{ URL }}/ideas/showAll/{{numpage+1}}" class="page-link">Następna</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}
+
+{% block footer %}
+<script src="{{ URL }}/js/searchideauser.js"></script>
+{% endblock %}

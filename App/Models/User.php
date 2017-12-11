@@ -48,10 +48,10 @@ class User extends \core\Model
             $this->activation_hash = $token->getHash();
 
             if ($notRequiredActivation) {
-                $sql = 'INSERT INTO users (name, email, password_hash, join_date, is_active) VALUES (:name, :email, :password_hash, :join_date, 1)';
+                $sql = 'INSERT INTO users (name, email, password_hash, permission, join_date, is_active) VALUES (:name, :email, :password_hash, :permission, :join_date, 1)';
 
             } else {
-                $sql = 'INSERT INTO users (name, email, password_hash, join_date, activation_hash) VALUES (:name, :email, :password_hash, :join_date, :activation_hash)';
+                $sql = 'INSERT INTO users (name, email, password_hash, ip, join_date, activation_hash) VALUES (:name, :email, :password_hash, :ip, :join_date, :activation_hash)';
 
             }
 
@@ -65,6 +65,10 @@ class User extends \core\Model
 
             if (!$notRequiredActivation){
                 $stmt->bindValue(':activation_hash', $this->activation_hash, PDO::PARAM_STR);
+                $stmt->bindValue(':ip', $_SERVER['REMOTE_ADDR'], PDO::PARAM_STR);
+
+            } else {
+                $stmt->bindValue(':permission', $this->permission);
             }
 
             return $stmt->execute();
@@ -103,17 +107,31 @@ class User extends \core\Model
 
     public function delete()
     {
+        if ($this->voted_ideas) {
+            $votes_db_array = explode('|', $this->voted_ideas);
+            $votes_array = array();
+
+            $db = static::getDB();
+
+            foreach ($votes_db_array as $value) {
+                $temp_arr = explode(',', $value);
+                $idea = Idea::get($temp_arr[0]);
+
+                $idea_votes = preg_replace("/$this->id,[0-9]+\|/", "",  $idea->votes);
+                $idea_votes = preg_replace("/\|$this->id,[0-9]+/", "",  $idea_votes);
+                $idea_votes = preg_replace("/$this->id,[0-5]+/", "",    $idea_votes);
+                $idea->votes = $idea_votes;
+                $idea->updateVotes();
+            }
+        }
+
         $sql = 'DELETE FROM users WHERE id = :id';
-        $sql2 = 'DELETE FROM remembered_logins WHERE user_id = :user_id';
 
         $db = static::getDB();
         $stmt = $db->prepare($sql);
-        $stmt2 = $db->prepare($sql2);
 
         $stmt->bindParam(':id', $this->id);
-        $stmt2->bindParam(':user_id', $this->id);
         $stmt->execute();
-        $stmt2->execute();
     }
 
 
@@ -476,6 +494,18 @@ class User extends \core\Model
         return false;
     }
 
+
+    public function updateVotes() {
+        $sql = 'UPDATE users SET voted_ideas = :votes WHERE id = :id';
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':votes', $this->voted_ideas, PDO::PARAM_STR);
+        $stmt->bindValue(':id', $this->id, PDO::PARAM_INT);
+        $stmt->execute();
+    }
+
+
+
     public function isAdmin()
     {
         return ((int)$this->permission === 1)? true : false;
@@ -504,13 +534,98 @@ class User extends \core\Model
             $sql .= ' ORDER BY '. $orderOption;
         }
 
-
         $db = static::getDB();
         $stmt = $db->query($sql);
         $stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
         return $stmt->fetchAll();
 
     }
+
+    public function canVote($idea_id)
+    {
+
+        $sql = 'SELECT id FROM ideas WHERE id = :id';
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $stmt->bindValue(':id', $idea_id, PDO::PARAM_STR);
+        $stmt->execute();
+        if (!$stmt->fetch()){
+            return false;
+        }
+
+
+
+        if ($this->voted_ideas) {
+            $votes_db_array = explode('|', $this->voted_ideas);
+            $votes_array = array();
+
+            foreach ($votes_db_array as $value) {
+                $temp_arr = explode(',', $value);
+                $votes_array[$temp_arr[0]] = $temp_arr[1];
+            }
+            if (key_exists($idea_id, $votes_array)) {
+                return false;
+            }
+            return true;
+        }
+        return true;
+    }
+
+
+
+    public function ideaVoteRate($idea_id)
+    {
+        if ($this->voted_ideas) {
+            $votes_db_array = explode('|', $this->voted_ideas);
+            $votes_array = array();
+
+            foreach ($votes_db_array as $value) {
+                $temp_arr = explode(',', $value);
+                $votes_array[$temp_arr[0]] = $temp_arr[1];
+            }
+            if (key_exists($idea_id, $votes_array)) {
+                return $votes_array[$idea_id];
+            }
+        }
+        return false;
+    }
+
+
+
+    public function vote($idea_id, $rate)
+    {
+        if (($rate > 0) && ($rate<=5)) {
+            $sql = 'SELECT voted_ideas FROM users WHERE id = :id';
+            $db = static::getDB();
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
+            $stmt->execute();
+            $record = $stmt->fetch()[0];
+
+            $sql = 'UPDATE users
+                    SET voted_ideas = :voted_ideas
+                    WHERE id = :id';
+            $db = static::getDB();
+            $stmt = $db->prepare($sql);
+
+            if ($record) {
+                $add = $record . '|'.$idea_id.','.$rate;
+            } else {
+                $add = $idea_id.','.$rate;
+            }
+
+            $stmt->bindValue(':id', $this->id, PDO::PARAM_INT);
+            $stmt->bindValue(':voted_ideas', $add, PDO::PARAM_STR);
+
+            return $stmt->execute();
+        }
+
+        return false;
+
+    }
+
+
 
     public static function getUsersCount()
     {

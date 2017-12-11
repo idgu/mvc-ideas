@@ -1,0 +1,221 @@
+{% extends "base.html" %}
+
+{% block title %}Pomysł{% endblock %}
+
+
+{% block head%}
+
+<style>
+    .my-border-left {
+        border-right: 1px solid beige ;
+    }
+    .rating-stars ul {
+        list-style-type:none;
+        padding:0;
+
+        -moz-user-select:none;
+        -webkit-user-select:none;
+    }
+    .rating-stars ul > li.star {
+        display:inline-block;
+
+    }
+
+    /* Idle State of the stars */
+    .rating-stars ul > li.star > i.fa {
+        font-size:2.5em; /* Change the size of the stars */
+        color:#ccc; /* Color on idle state */
+    }
+
+    /* Hover state of the stars */
+    .rating-stars ul > li.star.hover > i.fa {
+        color:#FFCC36;
+    }
+
+    /* Selected state of the stars */
+    .rating-stars ul > li.star.selected > i.fa {
+        color:#FF912C;
+    }
+
+
+</style>
+
+{% endblock %}
+
+{% block body%}
+
+
+{% if current_user %}
+
+{% if can_vote %}
+<div class="row justify-content-md-center mt-4">
+    <div class="col-md-10">
+        <div class='rating-stars text-center'>
+            <h3 class="mb-3" id="stars_header">Zagłosuj na pomysł</h3>
+            <ul id='stars'>
+                <li class='star' title='Słaby' data-value='1'>
+                    <i class='fa fa-star fa-fw'></i>
+                </li>
+                <li class='star' title='Średni' data-value='2'>
+                    <i class='fa fa-star fa-fw'></i>
+                </li>
+                <li class='star' title='Dobry' data-value='3'>
+                    <i class='fa fa-star fa-fw'></i>
+                </li>
+                <li class='star' title='Bardzo dobry' data-value='4'>
+                    <i class='fa fa-star fa-fw'></i>
+                </li>
+                <li class='star' title='Świetny' data-value='5'>
+                    <i class='fa fa-star fa-fw'></i>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<hr class="mt-4">
+{% else %}
+<div class="row justify-content-md-center mt-4">
+    <div class="col-md-10">
+        <div class='rating-stars text-center'>
+            <h3 class="mb-3">Twój głos</h3>
+            <ul id='stars'>
+                <li class='star' title='Słaby' data-value='1'>
+                    <i class='fa fa-star fa-fw'></i>
+                </li>
+                <li class='star' title='Średni' data-value='2'>
+                    <i class='fa fa-star fa-fw'></i>
+                </li>
+                <li class='star' title='Dobry' data-value='3'>
+                    <i class='fa fa-star fa-fw'></i>
+                </li>
+                <li class='star' title='Bardzo dobry' data-value='4'>
+                    <i class='fa fa-star fa-fw'></i>
+                </li>
+                <li class='star' title='Świetny' data-value='5'>
+                    <i class='fa fa-star fa-fw'></i>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<hr class="mt-4">
+{% endif %}
+{% endif %}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+
+        <div class="col-md-8">
+            <h4>{{idea.name}}</h4>
+            <hr>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <p><strong class="pr-3">Wkład: </strong>{{idea.contribution}} zł</p>
+            <hr>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8" style="overflow: hidden;  ">
+            <strong class="pr-3">Opis:</strong><br>{{ idea.content|striptags('<b>,<a>,<pre>,<p>,<strong>,<em>,<ul>,<li>,<ol>,<h1>,
+            <h2>,<h3>,<h4>,<h5>,<table>,<tbody>,<tr>,<td>,<tt>,<small>,<var>')|raw }}
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
+
+
+{% block footer %}
+
+{% if can_vote %}
+<script>
+    $(document).ready(function(){
+
+        var active = true;
+        var stars_header = document.querySelector('#stars_header');
+            $('#stars li').on('mouseover', function(){
+                if(active) {
+                    var onStar = parseInt($(this).data('value'), 10); // The star currently mouse on
+
+                    // Now highlight all the stars that's not after the current hovered star
+                    $(this).parent().children('li.star').each(function (e) {
+                        if (e < onStar) {
+                            $(this).addClass('hover');
+                        }
+                        else {
+                            $(this).removeClass('hover');
+                        }
+                    });
+                }
+
+            }).on('mouseout', function(){
+                if(active) {
+                    $(this).parent().children('li.star').each(function (e) {
+                        $(this).removeClass('hover');
+                    });
+                }
+            });
+
+
+            $('#stars li').on('click', function(){
+                if (active){
+                    var onStar = parseInt($(this).data('value'), 10); // The star currently selected
+                    var stars = $(this).parent().children('li.star');
+
+                    for (i = 0; i < stars.length; i++) {
+                        $(stars[i]).removeClass('selected');
+                    }
+
+                    for (i = 0; i < onStar; i++) {
+                        $(stars[i]).addClass('selected');
+                    }
+
+                    // JUST RESPONSE (Not needed)
+                    var rate_value = parseInt($('#stars li.selected').last().data('value'), 10);
+                    var idea_id = {{ idea.id }};
+                    vote(idea_id, rate_value);
+                    active = false;
+                    stars_header.innerHTML = "Twój głos"
+
+                }
+            });
+
+            function vote(ideaid, rate) {
+
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', '{{URL}}/account/xhr-vote?ideaid=' + ideaid +'&rate='+rate, true);
+
+                xhr.onload = function() {
+                    if (this.status == 200) {
+                        console.log(this.responseText);
+                    }
+                }
+                xhr.send();
+            }
+
+
+
+
+    });
+</script>
+{% else %}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const stars = document.querySelectorAll('.star');
+        const stars_selected = {{ vote_rate }}
+        for (let i = 0; i < stars_selected; i++) {
+            stars[i].classList.add("selected");
+        }
+
+    });
+</script>
+
+
+
+{% endif %}
+{% endblock %}

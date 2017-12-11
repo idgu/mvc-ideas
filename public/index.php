@@ -33,6 +33,9 @@ session_start();
 $router = new Core\Router();
 
 //Routing table
+$router->add('ideas/show/{idea:\d+}', ['controller'=> 'Ideas', 'action'=> 'show']);
+$router->add('ideas/showAll/{numpage:\d+}', ['controller'=> 'Ideas', 'action'=> 'showAll']);
+
 $router->add('{controller}/{action}/{userid:\d+}');
 $router->add('{controller}/{action}');
 
@@ -42,6 +45,7 @@ $router->add('login', ['controller'=> 'Login', 'action'=> 'new']);
 $router->add('signup', ['controller'=> 'Signup', 'action'=> 'new']);
 $router->add('logout', ['controller'=> 'Login', 'action'=> 'destroy']);
 $router->add('profile', ['controller'=> 'Profile', 'action'=> 'show']);
+$router->add('ideas', ['controller'=> 'Ideas', 'action'=> 'show-all']);
 
 $router->add('password/reset/{token:[\da-f]+}', ['controller'=> 'Password', 'action'=> 'reset']);
 $router->add('signup/activate/{token:[\da-f]+}', ['controller'=> 'Signup', 'action'=> 'activate']);
@@ -56,6 +60,16 @@ $router->add('admin', [
 $router->add('admin/users/index/{numpage:\d+}', [
     'controller'=> 'Users',
     'action' => 'index',
+    'namespace' => 'Admin'
+]);
+$router->add('admin/ideas/index/{numpage:\d+}', [
+    'controller'=> 'Ideas',
+    'action' => 'index',
+    'namespace' => 'Admin'
+]);
+$router->add('admin/ideas/waiting/{numpage:\d+}', [
+    'controller'=> 'Ideas',
+    'action' => 'waiting',
     'namespace' => 'Admin'
 ]);
 $router->add('admin/{controller}/{action}/{userid:\d+}', [

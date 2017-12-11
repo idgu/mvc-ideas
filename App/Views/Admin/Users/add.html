@@ -2,6 +2,20 @@
 
 {% block title %}Admin - add user{% endblock %}
 
+{% block header %}
+<header id="main-header" class="py-2 bg-primary text-white">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h1><i class="fa fa-user"></i> Użytkownicy</h1>
+            </div>
+        </div>
+    </div>
+</header>
+{% endblock %}
+
+
+
 {% block body%}
 
 <div class="container mt-3">
@@ -10,56 +24,69 @@
 <div class="alert alert-warning">{{ error }}</div></li>
 {% endfor %}
 {% endif %}
-
-
-
-
-
-
-
-
-
-
-<h1 class="display-4 mt-5 text-center">Add user</h1>
-<form class="justify-content-md-center mt-5" method="post" action="{{ URL }}/admin/users/create">
-    <div class="row justify-content-md-center">
-        <div class="form-group col-md-6">
-            <label for="inputName">Username</label>
-            <input type="text" name="name" class="form-control" id="inputName" placeholder="Name" autofocus value="{{ user.name }}" >
-        </div>
-    </div>
-
-
-
-    <div class="row justify-content-md-center">
-        <div class="form-group col-md-6">
-            <label for="inputEmail">Email (confirmation via Email Message)</label>
-            <input  name="email" class="form-control" id="inputEmail" placeholder="email adress" value="{{ user.email }}" >
-            <span id="emailError" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="row justify-content-md-center">
-        <div class="form-group col-md-6">
-            <label for="inputPassword">Password</label>
-            <input  name="password" class="form-control" id="inputPassword" placeholder="password" >
-        </div>
-    </div>
-    <div class="row justify-content-md-center">
-        <div class="form-group col-md-6">
-            <label for="inputPasswordConfirmation">Password Confirm</label>
-            <input  name="password_confirmation" class="form-control" id="inputPasswordConfirmation" placeholder="repeat password" >
-        </div>
-    </div>
-
-    <div class="row justify-content-md-center">
-        <div class="col-md-4">
-            <input type="hidden" name="token_form" value="{{ token_form }}">
-            <button type="submit" class="btn bg-inverse text-white btn-block">Add</button>
-        </div>
-    </div>
-</form>
-
 </div>
+
+
+
+
+
+
+    <section id="edit-user" class="mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Tworzenie użytkownika</h4>
+                        </div>
+                        <div class="card-block">
+                            <form method="post" action="{{ URL }}/admin/users/create">
+                                <div class="form-group">
+                                    <label for="inputName" class="form-control-label">Nazwa użytkownika</label>
+                                    <input id="inputName" type="text" class="form-control" name="name" placeholder="Nazwa użytkownika" value="{{ user.name }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputEmail" class="form-control-label">Email</label>
+                                    <input id="inputEmail" type="text" class="form-control" name="email" placeholder="Email" value="{{ user.email }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPassword" class="form-control-label">Hasło</label>
+                                    <input id="inputPassword" class="form-control" type="password" name="password" placeholder="Hasło">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="inputPasswordConfirmation" class="form-control-label">Potwierdzenie hasła</label>
+                                    <input id="inputPasswordConfirmation" class="form-control" type="password" name="password_confirmation" placeholder="Powtórz hasło">
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPermission" class="form-control-label">Ranga</label>
+                                    <select id="inputPermission" class="form-control"  name="permission">
+                                        <option value="0">Użytkownik</option>
+                                        <option value="1" {% if user.permission == 1 %} selected {% endif %}>Admin</option>
+                                    </select>
+                                </div>
+                                <div class="row justify-content-md-center mt-5">
+                                    <div class="form-group col-md-6 text-center">
+                                        <input type="hidden" name="token_form" value="{{ token_form }}">
+                                        <button type="submit" class="btn bg-inverse text-white btn-block">Dodaj</button>
+                                        <a href="{{ URL }}/admin">Zrezygnuj</a>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <img src="{{ URL }}/img/avatar.png" alt="" class="d-block img-fluid mb-3">
+                    <!--<button class="btn btn-primary btn-block">Edit Image</button>-->
+                    <!--<button class="btn btn-danger btn-block">Delete Image</button>-->
+                </div>
+            </div>
+        </div>
+    </section>
+
+
 {% endblock %}
 
 

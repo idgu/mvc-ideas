@@ -18,10 +18,44 @@
 
 {% block body%}
 
-    {% if current_user %}
-        <p>Witaj {{current_user.name}}!</p>
-    {% else %}
-        <p>Witaj Gościu !</p>
-    {% endif %}
+
+<section id="categories">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Ostatnie pomysły:</h4>
+                    </div>
+                    <table class="table table-striped mt-3">
+                        <thead class="thead-inverse">
+                        <tr>
+                            <th>#</th>
+                            <th>Nazwa</th>
+                            <th>Dodał</th>
+                            <th>Ranking</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% set x = 1%}
+                        {% for idea in ideas %}
+                        <tr>
+                            <td scope="row">{{ x }}</td>
+                            <td><a href="{{ URL }}/ideas/show/{{idea.id}}">{{ idea.name }}</a></td>
+                            <td><a href="{{ URL }}/profile/show/{{idea.user_id}}">{{ idea.user_name }}</a></td>
+                            <td> {{ idea.ranking }} <i class="fa fa-line-chart text-inverse fa-lg ml-2" aria-hidden="true"></i></td>
+                        </tr>
+                            {% set x = x + 1%}
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 
 {% endblock %}

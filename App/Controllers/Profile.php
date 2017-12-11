@@ -9,6 +9,7 @@ namespace App\Controllers;
 
 use \Core\View;
 use \App\Auth;
+use \app\Models\User;
 use \App\Flash;
 use \App\Input;
 use \App\Validator;
@@ -18,10 +19,40 @@ use \App\Form;
 class Profile extends Authenticated
 {
 
-    public function showAction()
+    public function show()
     {
-        View::renderTemplate('/Profile/show.html');
+        if (isset($this->route_params['userid'])){
+
+
+            $user = User::findById($this->route_params['userid']);
+            if ($user) {
+                View::renderTemplate('/Profile/show.html', [
+                    'user' => $user
+                ]);
+            } else {
+                Flash::addMessage('Użytkownik nie istnieje');
+                $this->redirect('/');
+            }
+
+
+
+        } else {
+
+
+            $user = Auth::getUser();
+            if (!$user){
+                Flash::addMessage('Użytkownik nie istnieje');
+                $this->redirect('/');
+            }
+            View::renderTemplate('/Profile/show.html', [
+                'user' => $user
+            ]);
+
+
+        }
     }
+
+
 
     public function editAction()
     {
@@ -29,6 +60,8 @@ class Profile extends Authenticated
             'token_form' => Input::generateFormToken()
         ]);
     }
+
+
 
 
     public function updateAction()

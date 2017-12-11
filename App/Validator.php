@@ -63,6 +63,9 @@ class Validator
                     case 'oneNumber':
                         $this->oneNumber();
                         break;
+                    case 'number':
+                        $this->number();
+                        break;
 
                     case 'email':
                         $this->email();
@@ -137,6 +140,13 @@ class Validator
     {
         if (preg_match('/.*\d+.*/i', $this->getElementData()) == 0) {
             $this->_errors[] = '"'.$this->getElementName().' musi zawierać przynajmniej 1 cyfrę';
+        }
+    }
+
+    private function number()
+    {
+        if (!is_numeric($this->getElementData())) {
+            $this->_errors[] = '"'.$this->getElementName().'" musi być liczbą';
         }
     }
 
