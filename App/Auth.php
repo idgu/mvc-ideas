@@ -7,7 +7,7 @@
 
 namespace App;
 
-use App\Models\RememberedLogin;
+use \App\Models\RememberedLogin;
 use \App\Models\User;
 
 class Auth

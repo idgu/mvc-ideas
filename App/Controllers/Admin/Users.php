@@ -7,10 +7,10 @@
 
 namespace App\Controllers\Admin;
 
-use App\Config;
+use \App\Config;
 use \Core\View;
 use \App\Models\User;
-use App\Flash;
+use \App\Flash;
 use \App\Validator;
 use \App\Input;
 use \App\Form;

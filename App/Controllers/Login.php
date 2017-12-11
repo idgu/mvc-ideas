@@ -7,7 +7,7 @@
 
 namespace App\Controllers;
 
-use \core\View;
+use \Core\View;
 use \App\Models\User;
 use \App\Auth;
 use \App\Flash;
