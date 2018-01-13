@@ -24,5 +24,5 @@ Funkcje strony (Administrator):
 - Akceptowanie pomysłów oczekujących, dodanych przez użytkowników
 - itd...
 
-
+[![IMAGE ALT TEXT](http://img.youtube.com/vi/A_OndE7eqgg/0.jpg)](http://www.youtube.com/watch?v=A_OndE7eqgg "MVC - IDEAS")
 https://www.youtube.com/watch?v=A_OndE7eqgg&feature=youtu.be
