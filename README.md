@@ -26,4 +26,4 @@ Funkcje strony (Administrator):
 
 
 Prezentacja:
-https://www.youtube.com/watch?v=A_OndE7eqgg&feature=youtu.be
+https://www.youtube.com/watch?v=A_OndE7eqgg
