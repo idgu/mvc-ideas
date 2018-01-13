@@ -23,7 +23,3 @@ Funkcje strony (Administrator):
 - Asynchroniczne wyszukiwanie użytkowników (w czasie rzeczywistym)
 - Akceptowanie pomysłów oczekujących, dodanych przez użytkowników
 - itd...
-
-
-Prezentacja:
-https://www.youtube.com/watch?v=A_OndE7eqgg
